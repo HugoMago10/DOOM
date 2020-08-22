@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <title>Tabla Dinamica</title>
+</head>
+<body>
+    <header class="container bg-dark p-4 text-white">
+        <h2>AppKim</h2>
+    </header>
+    <main>
+        <section class="container p-4">
+            <section class="row">
+                <div class="col-4">
+                    <h3>Tabla con DOM</h3>
+                    <input class="btn-success" type="button" value="Genera una tabla"
+                        onclick="genera_tabla()">
+                    <input class="btn-danger" type="button" value="Borrar la tabla"
+                        onclick="borra_tabla()">
+                </div>
+                <div class="col-8">
+                    <table id="table" class="table"></table>
+                </div>
+            </section>
+        </section>
+    </main>
+    <footer></footer>
+    <script>
+        function borra_tabla (){
+            let table = document.querySelector("thead");
+            if (!table){
+                alert("Elemento no existe");
+            }else{
+                padre = table.parentNode;
+                padre.removeChild(table);
+            }
+        }
+        function genera_tabla() {
+            let table = document.querySelector("table");
+            if (!document.querySelector("thead")){//si no existe tabla se crea
+                let data = Object.keys(usuario[0]);//Regresa todas las propiedades del objeto
+                generateTableHead(table, data);//crea la cabecera
+                generateTable(table, usuario);//crea el cuerpo de la tabla
+            }
+        }
+
+        let usuario = [
+            {Nombre:"Hugo",Apellido: "Mendez Suarez",Feha_Nacimiento: "10-10-1993"},
+            {Nombre:"Wendy",Apellido: "Silvano Arolez",Feha_Nacimiento: "10-10-1992"},
+            {Nombre:"Ana Laura",Apellido: "Mendoza Garcia",Feha_Nacimiento: "10-10-1991"},
+            {Nombre:"Andrea",Apellido: "Solano Perez",Feha_Nacimiento: "10-10-1993"}
+        ];
+
+        function generateTableHead(table, data) {
+            let thead = table.createTHead();
+            thead.className ='thead-dark';//Agrega una clase boostrap a la tabla
+            let row = thead.insertRow();
+            for (let key of data) {
+                let th = document.createElement("th");
+                let text = document.createTextNode(key);
+                th.appendChild(text);
+                row.appendChild(th);
+            }
+        }
+
+        function generateTable(table, data) {
+            for (let element of data) {
+                let row = table.insertRow();
+                for (key in element) {
+                let cell = row.insertCell();
+                let text = document.createTextNode(element[key]);
+                cell.appendChild(text);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
