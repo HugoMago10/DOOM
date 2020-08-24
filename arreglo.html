@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <main>
+        <h1>Catalogo de peliculas</h1>
+    
+        <label>Agregar peliculas
+            <input type="text" onchange="agregaPelicula(this);" id="txtAgrega">
+        </label>
+        <div>
+            <ul id="listaPelicula"></ul>
+        </div>
+        <label>
+            Nombre del pelicula para mostrar su posicion
+            <input type="text" onchange="buscarPeli(this);" id="txtNombre">
+        </label>
+        <div id="resultado"></div>
+
+        <script>
+            var catalogo = new Array();
+
+            const ul = document.getElementById ("listaPelicula");
+            
+            function agregaPelicula (){
+                const li = document.createElement ('li');
+
+                console.log ("Agregando..." );
+                titulo = document.getElementById ('txtAgrega').value;
+                catalogo.push ( titulo );
+                
+                var nodoText = document.createTextNode ( titulo );
+
+                li.appendChild ( nodoText );
+                ul.appendChild ( li );
+            }
+
+            function buscarPeli (){
+                textoBuscar = document.getElementById('txtNombre').value;
+                console.log ("Buscando..."+ textoBuscar );
+                posicion = catalogo.indexOf( textoBuscar );
+                document.getElementById ("resultado").innerHTML ='Posicion: '+posicion;
+            }
+
+        </script>
+    </main>
+</body>
+</html>
